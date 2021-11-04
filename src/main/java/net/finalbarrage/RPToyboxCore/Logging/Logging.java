@@ -2,6 +2,16 @@ package net.finalbarrage.RPToyboxCore.Logging;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+/*
+Logging Types:
+0 - Low Level, Regular log
+1 - Medium Level, Info log
+2 - High Level, Error log
+Examples:
+doLog("Hello World!", 0);
+doLog("Hello World!", 1);
+doLog("Hello World!", 2);
+ */
 public class Logging extends JavaPlugin {
     public void doLog(String _data, int _type) {
         String _parsed = "";
@@ -25,7 +35,7 @@ public class Logging extends JavaPlugin {
     }
 
     public void doLogSql(String _data){
-        String _parsed = String.format("%s", _data);
+        String _parsed = String.format("[RPCore][SQL]: %s", _data);
         getServer().getConsoleSender().sendMessage(_parsed);
     }
 }
