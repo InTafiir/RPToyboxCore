@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="spigot-api-1.17">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Dependencies/spigot-api-1.17.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../../../Games/Servers/Spigot BuildTools/Spigot/Spigot-API" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../../../Games/Servers/Spigot BuildTools/Spigot/Spigot-API/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../../../../Games/Servers/Spigot BuildTools/Spigot/Spigot-API/src/test/java" />
+    </SOURCES>
   </library>
 </component>
