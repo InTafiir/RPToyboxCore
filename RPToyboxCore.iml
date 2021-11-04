@@ -20,6 +20,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="spigot-api-1.17" level="project" />
   </component>
 </module>
