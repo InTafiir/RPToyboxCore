@@ -1,4 +1,4 @@
-package net.finalbarrage.RPToyboxCore.Sql;
+package net.finalbarrage.RPToyboxCore.SqlManager;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
