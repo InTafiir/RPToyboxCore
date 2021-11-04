@@ -1,0 +1,5 @@
+name: RPToyboxCore
+version: 1.0
+author: InTafiir
+main: net.finalbarrage.RPToyboxCore.Main
+api-version: 1.17
