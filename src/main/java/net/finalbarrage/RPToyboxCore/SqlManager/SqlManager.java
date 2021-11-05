@@ -39,8 +39,7 @@ public class SqlManager {
                     connection = DriverManager.getConnection(dbURL);
                     if (isConnected()) {
                         logger.doLogSql(ChatColor.GREEN + "[RPCore][SQL]: Connected to SQL Database!");
-                        SQLCreateTables.createMailboxTable(dbURL);
-                        SQLCreateTables.createPlayersTable(dbURL); }
+                    }
                 } catch (SQLException throwables) {
                     logger.doLogSql(ChatColor.RED + "Failed to connect to SQL Database!");
                     throwables.printStackTrace(); }
@@ -78,38 +77,11 @@ public class SqlManager {
         try { if (isConnected()) { connection.close(); }
         } catch (SQLException throwables) { throwables.printStackTrace(); }
     }
-}
 
-class SQLCreateTables {
-
-    public static void createMailboxTable(String dbURL) {
-        String sql = "CREATE TABLE IF NOT EXISTS mailboxes ("
-                + " id integer PRIMARY KEY NOT NULL,"
-                + " chunkX integer NOT NULL,"
-                + " chunkZ integer NOT NULL,"
-                + " blockX integer NOT NULL,"
-                + " blockY integer NOT NULL,"
-                + " blockZ integer NOT NULL,"
-                + " type varchar NOT NULL)";
-
-        try (Connection conn = DriverManager.getConnection(dbURL); Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) { e.printStackTrace(); }
-    }
-
-    public static void createMail(String dbURL) {
-
-    }
-
-    public static void createPlayersTable(String dbURL) {
-        String sql = "CREATE TABLE IF NOT EXISTS players ("
-                + " id integer PRIMARY KEY NOT NULL,"
-                + " uuid VARCHAR(32) NOT NULL,"
-                + " username VARCHAR(16) NOT NULL,"
-                + " orbid integer(9) NOT NULL)";
-
-        try (Connection conn = DriverManager.getConnection(dbURL); Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
+    public static void createTable(String _sqlData, String _dbConn)
+    {
+        try (Connection conn = DriverManager.getConnection(_dbConn); Statement stmt = conn.createStatement()) {
+            stmt.execute(_sqlData);
         } catch (SQLException e) { e.printStackTrace(); }
     }
 }
