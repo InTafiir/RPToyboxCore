@@ -13,7 +13,12 @@ doLog("Hello World!", 0);
 doLog("Hello World!", 1);
 doLog("Hello World!", 2);
  */
-public class Logging extends JavaPlugin {
+public class Logging {
+
+    private RPCore rpCore;
+
+    public Logging(RPCore _rpCore) { rpCore = _rpCore; }
+
     public void doLog(String _data, int _type) {
         String _parsed = switch (_type) {
             case 0 -> String.format("[RPCore]: %s", _data);

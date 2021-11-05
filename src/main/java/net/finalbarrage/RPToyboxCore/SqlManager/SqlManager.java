@@ -25,12 +25,16 @@ public class SqlManager {
         logger = _logger;
     }
 
-    public static boolean isConnected() { return (connection == null) ? false : true; }
+    public static boolean isConnected() {
+        return (connection == null) ? false : true;
+    }
 
-    public static Connection getConnection() { return connection; }
+    public static Connection getConnection() {
+        return connection;
+    }
 
-    public static void connect(RPCore rpCore) {
-        if (rpCore.configManager.getConfig().getBoolean("SQL.serverless")) {
+    public void connect() {
+        if (rpCore.coreConfig.getConfig().getBoolean("SQL.serverless")) {
             dbPath = Paths.get(rpCore.getDataFolder() + "/databases/");
             dbFile = new File(dbPath + "/" + "RPCore.db");
             if (pathExists(dbPath) && fileExists(dbFile)) {
@@ -59,9 +63,16 @@ public class SqlManager {
         }
     }
 
-    private static boolean pathExists(Path dbPath) {
-        try { if (!Files.exists(dbPath) || !Files.isDirectory(dbPath)) { Files.createDirectories(dbPath); }
-            return true; } catch (Exception e) { e.printStackTrace(); return false; }
+    private boolean pathExists(Path dbPath) {
+        try {
+            if (!Files.exists(dbPath) || !Files.isDirectory(dbPath)) {
+                Files.createDirectories(dbPath);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private boolean fileExists(File dbFile) {
@@ -71,16 +82,22 @@ public class SqlManager {
             return true; }
     }
 
-    public static void disconnect() {
+    public void disconnect() {
         logger.doLogSql(ChatColor.GREEN + "Connection Closed!");
-        try { if (isConnected()) { connection.close(); }
-        } catch (SQLException throwables) { throwables.printStackTrace(); }
+        try {
+            if (isConnected()) {
+                connection.close();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
-    public static void createTable(String _sqlData, String _dbConn)
-    {
+    public void createTable(String _sqlData, String _dbConn) {
         try (Connection conn = DriverManager.getConnection(_dbConn); Statement stmt = conn.createStatement()) {
             stmt.execute(_sqlData);
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
