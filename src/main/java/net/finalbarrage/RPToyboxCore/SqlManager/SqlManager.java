@@ -32,7 +32,7 @@ public class SqlManager {
     public static void connect(RPCore rpCore) {
         if (rpCore.configManager.getConfig().getBoolean("SQL.serverless")) {
             dbPath = Paths.get(rpCore.getDataFolder() + "/databases/");
-            dbFile = new File(dbPath + "/" + "RPEssentials.db");
+            dbFile = new File(dbPath + "/" + "RPCore.db");
             if (pathExists(dbPath) && fileExists(dbFile)) {
                 try {
                     String dbURL = "jdbc:sqlite:" + dbFile;
@@ -51,7 +51,7 @@ public class SqlManager {
             String pass = rpCore.configManager.getConfig().getString("SQL.server.pass");
             try {
                 if (!isConnected()) {
-                    connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/RPEssentials?useSSL=false", host, port), user, pass);
+                    connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/RPCore?useSSL=false", host, port), user, pass);
                     logger.doLogSql(ChatColor.GREEN + "Connected to SQL Server!"); }
             } catch (SQLException e) {
                 logger.doLogSql(ChatColor.RED + "Failed to connect to SQL Server!");
