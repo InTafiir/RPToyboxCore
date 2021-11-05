@@ -3,7 +3,6 @@ package net.finalbarrage.RPToyboxCore.SqlManager;
 import net.finalbarrage.RPToyboxCore.Logging.Logging;
 import net.finalbarrage.RPToyboxCore.RPCore;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.nio.file.Files;
