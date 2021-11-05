@@ -1,5 +1,6 @@
 package net.finalbarrage.RPToyboxCore.Logging;
 
+import net.finalbarrage.RPToyboxCore.RPCore;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
@@ -14,28 +15,18 @@ doLog("Hello World!", 2);
  */
 public class Logging extends JavaPlugin {
     public void doLog(String _data, int _type) {
-        String _parsed = "";
+        String _parsed = switch (_type) {
+            case 0 -> String.format("[RPCore]: %s", _data);
+            case 1 -> String.format("[RPCore][INFO]: %s", _data);
+            case 2 -> String.format("[RPCore][ERROR]: %s", _data);
+            default -> throw new IllegalStateException("Unexpected value: " + _type);
+        };
 
-        switch(_type)
-        {
-            case 0:
-                _parsed = String.format("[RPCore]: %s", _data);
-                break;
-            case 1:
-                _parsed = String.format("[RPCore][INFO]: %s", _data);
-                break;
-            case 2:
-                _parsed = String.format("[RPCore][ERROR]: %s", _data);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + _type);
-        }
-
-        getServer().getConsoleSender().sendMessage(_parsed);
+        rpCore.getServer().getConsoleSender().sendMessage(_parsed);
     }
 
     public void doLogSql(String _data){
         String _parsed = String.format("[RPCore][SQL]: %s", _data);
-        getServer().getConsoleSender().sendMessage(_parsed);
+        rpCore.getServer().getConsoleSender().sendMessage(_parsed);
     }
 }

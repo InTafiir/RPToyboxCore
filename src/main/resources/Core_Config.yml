@@ -1,0 +1,7 @@
+SQL:
+  serverless: true
+  server:
+    host: address
+    port: port
+    user: username
+    pass: password

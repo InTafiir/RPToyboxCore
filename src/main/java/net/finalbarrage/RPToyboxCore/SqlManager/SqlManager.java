@@ -14,15 +14,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SqlManager {
-    private static RPCore rpCore;
-    private static Logging logger;
+    private RPCore rpCore;
+    private Logging logger;
     private static Path dbPath;
     private static File dbFile;
     public static Connection connection;
 
-    public SqlManager(RPCore rpCore) {
-        SqlManager.rpCore = rpCore;
-        connect(rpCore);
+    public SqlManager(RPCore _rpCore, Logging _logger) {
+        rpCore = _rpCore;
+        logger = _logger;
     }
 
     public static boolean isConnected() { return (connection == null) ? false : true; }
@@ -45,10 +45,10 @@ public class SqlManager {
                     throwables.printStackTrace(); }
             }
         } else {
-            String host = rpCore.configManager.getConfig().getString("SQL.server.host");
-            String port = rpCore.configManager.getConfig().getString("SQL.server.port");
-            String user = rpCore.configManager.getConfig().getString("SQL.server.user");
-            String pass = rpCore.configManager.getConfig().getString("SQL.server.pass");
+            String host = rpCore.coreConfig.getConfig().getString("SQL.server.host");
+            String port = rpCore.coreConfig.getConfig().getString("SQL.server.port");
+            String user = rpCore.coreConfig.getConfig().getString("SQL.server.user");
+            String pass = rpCore.coreConfig.getConfig().getString("SQL.server.pass");
             try {
                 if (!isConnected()) {
                     connection = DriverManager.getConnection(String.format("jdbc:mysql://%s:%s/RPCore?useSSL=false", host, port), user, pass);
@@ -64,12 +64,11 @@ public class SqlManager {
             return true; } catch (Exception e) { e.printStackTrace(); return false; }
     }
 
-    private static boolean fileExists(File dbFile) {
+    private boolean fileExists(File dbFile) {
         if(dbFile.exists()) { return true; } else {
             try { dbFile.createNewFile();
-            } catch (Exception e) { e.printStackTrace(); return false; }
-        }
-        return true;
+            } catch (Exception e) { e.printStackTrace(); }
+            return true; }
     }
 
     public static void disconnect() {
