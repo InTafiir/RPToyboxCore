@@ -1,9 +1,14 @@
 package net.finalbarrage.RPToyboxCore;
 
 import net.finalbarrage.RPToyboxCore.ConfigManager.ConfigManager;
+import net.finalbarrage.RPToyboxCore.Events.ServerEvents;
 import net.finalbarrage.RPToyboxCore.Logging.Logging;
 import net.finalbarrage.RPToyboxCore.SqlManager.SqlManager;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RPCore extends JavaPlugin {
 
@@ -11,15 +16,19 @@ public class RPCore extends JavaPlugin {
     public static SqlManager sqlManager;
     public static Logging logger;
 
+    public static Map<String, Player> onlinePlayers;
+
     @Override
     public void onEnable() {
         coreConfig = new ConfigManager(this, "Core_Config.yml");
         coreConfig.reloadConfig();
-
         logger = new Logging(this);
-
         sqlManager = new SqlManager(this, logger);
         sqlManager.connect();
+
+        onlinePlayers = new HashMap<>();
+
+        this.getServer().getPluginManager().registerEvents(new ServerEvents(this), this);
 
     }
 
@@ -30,12 +39,3 @@ public class RPCore extends JavaPlugin {
     }
 
 }
-
-/*
-java.lang.IllegalArgumentException: Plugin already initialized!
-	at org.bukkit.plugin.java.PluginClassLoader.initialize(PluginClassLoader.java:224) ~[patched_1.17.1.jar:git-Paper-119]
-	at org.bukkit.plugin.java.JavaPlugin.<init>(JavaPlugin.java:52) ~[patched_1.17.1.jar:git-Paper-119]
-	at net.finalbarrage.RPToyboxCore.ConfigManager.ConfigManager.<init>(ConfigManager.java:18) ~[?:?]
-	at net.finalbarrage.RPToyboxCore.RPCore.onEnable(RPCore.java:14) ~[?:?]
-	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:263) ~[patched_1.17.1.
- */
